@@ -1,0 +1,29 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.allContent {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-wrapper {
+  width: 50%;
+  height: auto;
+}
+
+.button {
+  padding-inline: 20px;
+  margin: 10px;
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
