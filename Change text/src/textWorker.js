@@ -2,7 +2,7 @@ import * as actions from './allFunctions.js';
 
 self.onmessage = (e) => {
   const { action, text } = e.data;
-  const startTime = performance.now(); // Заміряємо час прямо тут
+  const startTime = performance.now();
 
   let result = text;
   if (action === 'allLettersToUpperCase') result = actions.allLettersToUpperCase(text);
@@ -23,7 +23,6 @@ self.onmessage = (e) => {
 
   const endTime = performance.now();
   
-  // Надсилаємо назад результат І час виконання
   self.postMessage({ 
     result, 
     duration: endTime - startTime, 

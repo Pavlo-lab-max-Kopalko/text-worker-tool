@@ -2,8 +2,15 @@ import { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [text, setText] = useState('');
+  const savedText = localStorage.getItem('text_draft') || '';
+  console.log(savedText);
+  const [text, setText] = useState(savedText);
+
   const [history, setHistory] = useState([]);
+
+  const [historyIndex, setHistoryIndex] = useState(history.length);
+  console.log(history);
+
   const [findText, setFindText] = useState("");
   const [replaceText, setReplaceText] = useState("");
   const [metrics, setMetrics] = useState({});
@@ -21,6 +28,8 @@ function App() {
       if (updatedHistory.length > 10) {
         updatedHistory = updatedHistory.slice(1);
       }
+
+      setHistoryIndex(updatedHistory.length - 1);
 
       return updatedHistory;
     });
@@ -147,10 +156,8 @@ function App() {
 
     if (!findText) return;
 
-    // Створюємо воркер
     const worker = new Worker(new URL('./textWorker.js', import.meta.url), { type: 'module' });
 
-    // Відправляємо дані: назву дії, текст і ОБ'ЄКТ з параметрами пошуку/заміни
     worker.postMessage({
       action: 'replaceLogic',
       text: text,
@@ -161,7 +168,7 @@ function App() {
       const { result, duration } = e.data;
 
       if (result !== text) {
-        writeHistory(result); // Записуємо історію тільки якщо були зміни
+        writeHistory(result);
         setText(result);
         setMetrics(prev => ({ ...prev, time: duration }));
       }
@@ -269,16 +276,37 @@ function App() {
     worker.onmessage = (e) => {
       const { result, duration } = e.data;
 
-      // Тільки тут викликаємо функції зміни стану!
       if (result !== text) {
-        writeHistory(result); // Ваша функція історії
-        setText(result);      // Оновлення тексту
-        setMetrics(duration);    // Стейт для часу виконання
+        console.log(result);
+        setText(result);
+        writeHistory(result);
+        setMetrics(duration);
+        localStorage.setItem('text_draft', result);
       }
 
       worker.terminate();
     };
   };
+
+  const onUndo = () => {
+    setHistoryIndex(currentIndex => currentIndex - 1);
+    setText(history[historyIndex].join('\n'));
+
+    console.log(history[historyIndex]);
+    console.log(history);
+    console.log(historyIndex);
+  };
+
+  const onRedo = () => {
+    setHistoryIndex(currentIndex => currentIndex + 1);
+    setText(history[historyIndex].join('\n'));
+
+    console.log(history[historyIndex]);
+  };
+
+  console.log(historyIndex);
+  console.log(historyIndex === 0);
+  console.log(historyIndex === history.length - 1);
 
   return (
     <>
@@ -328,6 +356,14 @@ function App() {
 
             <button type="submit">Замінити все</button>
           </form>
+
+          <button disabled={historyIndex <= 0} onClick={() => onUndo()}>Undo</button>
+          <button
+            disabled={historyIndex >= history.length - 1}
+            onClick={() => onRedo()}
+          >
+            Redo
+          </button>
         </div>
       </div>
     </>
