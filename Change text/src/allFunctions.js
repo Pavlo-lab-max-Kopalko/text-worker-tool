@@ -6,7 +6,7 @@ export * from './logikHandlers/addSquads';
 export * from './logikHandlers/allLetersToLowerCase';
 export * from './logikHandlers/allLetersToUpperCase';
 export * from './logikHandlers/firstLetterBig';
-export * from './logikHandlers/handleReplaceLogic';
+export * from './logikHandlers/replaceLogic';
 export * from './logikHandlers/plusBeforeWord';
 export * from './logikHandlers/removePartPhrase';
 export * from './logikHandlers/removePlusBeforeWord';

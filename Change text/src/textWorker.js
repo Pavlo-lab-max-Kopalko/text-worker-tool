@@ -2,9 +2,15 @@ import * as actions from './allFunctions.js';
 
 self.onmessage = (e) => {
   const { action, text } = e.data;
+  const { params } = e.data;
   const startTime = performance.now();
 
   let result = text;
+
+  if (action === 'replaceLogic' && params) {
+    result = actions.replaceLogic(text, params);
+  }
+
   if (action === 'allLettersToUpperCase') result = actions.allLettersToUpperCase(text);
   if (action === 'allLettersToLowerCase') result = actions.allLetersToLowerCase(text);
   if (action === 'firstLetterBig') result = actions.firstLetterBig(text);

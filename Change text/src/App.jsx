@@ -3,22 +3,17 @@ import './App.css';
 
 function App() {
   const savedText = localStorage.getItem('text_draft') || '';
-  console.log(savedText);
   const [text, setText] = useState(savedText);
-
   const [history, setHistory] = useState([]);
-
-  const [historyIndex, setHistoryIndex] = useState(history.length);
-  console.log(history);
-
+  const [historyIndex, setHistoryIndex] = useState(0);
   const [findText, setFindText] = useState("");
   const [replaceText, setReplaceText] = useState("");
   const [metrics, setMetrics] = useState({});
 
-  console.log(metrics);
-
   const handleChange = (e) => {
     setText(e);
+    setHistory([]);
+    setHistoryIndex(0);
   };
 
   const writeHistory = () => {
@@ -34,121 +29,6 @@ function App() {
       return updatedHistory;
     });
   }
-
-  // const allLetersToUpperCase = () => {
-  //   writeHistory();
-
-  //   const newText = text.split('\n').map(word => word.toUpperCase());
-
-  //   setText(newText.join('\n'));
-  // }
-
-  // const allLetersToLowerCase = () => {
-  //   writeHistory();
-
-  //   const newText = text.split('\n').map(word => word.toLowerCase());
-
-  //   setText(newText.join('\n'));
-  // }
-
-  // const firstLetterBig = () => {
-  //   writeHistory();
-
-  //   const newText = text.split('\n').map(string => {
-  //     const words = string.split(' ').map(word => {
-  //       let newWord = '';
-  //       const hasLetter = (str) => /\p{L}/u.test(str);
-
-  //       for (let i = 0; i < word.length; i++) {
-  //         if (!hasLetter(newWord)) {
-  //           newWord += word[i].toUpperCase();
-
-  //           console.log(newWord);
-  //         } else {
-  //           newWord += word[i];
-  //         }
-  //       }
-
-  //       return newWord;
-  //     })
-
-  //     return words.join(' ');
-  //   });
-
-  //   setText(newText.join('\n'));
-  // }
-
-  // console.log(history);
-
-  // const plusBeforeWord = () => {
-  //   writeHistory();
-
-  //   const newText = text.split('\n').map(string => {
-  //     const words = string.split(' ').map(word => `+${word}`);
-
-  //     return words.join(' ');
-  //   });
-
-  //   setText(newText.join('\n'));
-  // };
-
-  // const removePlusBeforeWord = () => {
-  //   writeHistory();
-
-  //   const newText = text.split('\n').map(string => {
-  //     const words = string.split(' ').map(word => {
-  //       let newWorld = '';
-
-  //       console.log(word);
-
-  //       for (let i = 0; i < word.length; i++) {
-  //         if (word[0] === '+' && i === 0) {
-  //           continue;
-  //         }
-
-  //         newWorld += word[i];
-  //       }
-
-  //       return newWorld;
-  //     })
-
-  //     return words.join(' ');
-  //   });
-
-  //   setText(newText.join('\n'));
-  // }
-
-  // const addQoutes = () => {
-  //   writeHistory();
-
-  //   const newText = text.split('\n').map(word => `"${word}"`);
-
-  //   setText(newText.join('\n'));
-  // };
-
-  // const addSquads = () => {
-  //   writeHistory();
-
-  //   const newText = text.split('\n').map(word => `[${word}]`);
-
-  //   setText(newText.join('\n'));
-  // }
-
-  // const addMinus = () => {
-  //   writeHistory();
-
-  //   const newText = text.split('\n').map(string => `-${string}`);
-
-  //   setText(newText.join('\n'));
-  // }
-
-  // const addMinusAndSqauds = () => {
-  //   writeHistory();
-
-  //   const newText = text.split('\n').map(word => `-[${word}]`);
-
-  //   setText(newText.join('\n'));
-  // }
 
   const handleReplaceSubmit = (e) => {
     e.preventDefault();
@@ -177,97 +57,6 @@ function App() {
     };
   };
 
-  // const addMinusAndQuotes = () => {
-  //   writeHistory();
-
-  //   const newText = text.split('\n').map(word => `-"${word}"`);
-
-  //   setText(newText.join('\n'));
-  // }
-
-  // const removeSpace = () => {
-  //   writeHistory();
-
-  //   const newText = text.split('\n').map(string => {
-
-  //     const words = string.split(/\s+/).map(word => {
-  //       return word.trim();
-  //     })
-
-  //     return words.join(' ');
-  //   });
-
-  //   console.log(newText);
-
-  //   setText(newText.join('\n'));
-  // }
-
-  // const removePartPhrase = () => {
-  //   writeHistory();
-
-  //   const newText = text.split('\n').map(string => {
-  //     console.log(string);
-  //     const words = string.split('-');
-  //     console.log(words);
-
-  //     return words[0];
-  //   });
-
-  //   setText(newText.join('\n'));
-  // }
-
-  // const replaceProbils = () => {
-  //   writeHistory();
-
-  //   const newText = text.split('\n').map(line => {
-  //     const words = line.split(' ').map(word => {
-  //       console.log(word);
-
-  //       let newWord = '';
-
-  //       for (let i = 0; i < word.length; i++) {
-  //         if (word[i] === ' ') {
-  //           newWord += '_';
-  //         } else {
-  //           newWord += word[i];
-  //         }
-  //       }
-
-  //       return newWord;
-  //     })
-
-  //     return words.join('_');
-  //   })
-
-  //   setText(newText.join('\n'));
-  // }
-
-  // const removesSpecialSymbols = () => {
-  //   writeHistory();
-
-  //   const newText = text.split('\n').map(line => {
-  //     const words = line.split(' ').map(word => word.replace(/[()\\~!@#$%^&*_=+[\]{}|;'":,/<>?`]/g, ''));
-
-  //     return words.join(' ');
-  //   })
-
-  //   setText(newText.join('\n'));
-  // }
-
-  // const exchangeSpecialSymbolsOnProbils = () => {
-  //   writeHistory();
-
-  //   const newText = text.split('\n').map(line => {
-  //     const words = line.split(' ').map(word => {
-  //       return word.replace(/[()\\~!@#$%^&*_=+[\]{}|;'":,/<>?`]/g, ' ');
-  //     })
-
-  //     return words.join(' ');
-  //   })
-
-  //   setText(newText.join('\n'));
-  // }
-
   const handleAction = (actionType) => {
     const worker = new Worker(new URL('./textWorker.js', import.meta.url), { type: 'module' });
 
@@ -277,7 +66,6 @@ function App() {
       const { result, duration } = e.data;
 
       if (result !== text) {
-        console.log(result);
         setText(result);
         writeHistory(result);
         setMetrics(duration);
@@ -291,22 +79,12 @@ function App() {
   const onUndo = () => {
     setHistoryIndex(currentIndex => currentIndex - 1);
     setText(history[historyIndex].join('\n'));
-
-    console.log(history[historyIndex]);
-    console.log(history);
-    console.log(historyIndex);
   };
 
   const onRedo = () => {
     setHistoryIndex(currentIndex => currentIndex + 1);
     setText(history[historyIndex].join('\n'));
-
-    console.log(history[historyIndex]);
   };
-
-  console.log(historyIndex);
-  console.log(historyIndex === 0);
-  console.log(historyIndex === history.length - 1);
 
   return (
     <>
@@ -321,6 +99,7 @@ function App() {
         />
 
         <div className='button-wrapper'>
+          <div>{`Metrics: ${metrics}` }</div>
           <button className='button' onClick={() => handleAction('allLettersToUpperCase')}>Усі великі літери</button>
           <button className='button' onClick={() => handleAction('allLettersToLowerCase')}>Усі малі літери</button>
           <button className='button' onClick={() => handleAction('firstLetterBig')}>Кожне слово з великої літери</button>

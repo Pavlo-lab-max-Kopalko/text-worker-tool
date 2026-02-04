@@ -1,16 +1,16 @@
-# React + Vite
+   # Getting Started:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+  1.  **Clone the repository and enter to the app:**
+    ```git clone https://github.com/Pavlo-lab-max-Kopalko/text-worker-tool.git```
+    ```code text-worker-tool```
+    ```cd Middle-PHP/Change text```
+  2.  **Install dependencies:**
+    ```npm install```
+  3. **Go to live**
+    ```npm run dev```
+  4.  **Open the link as this:**
+     (http://localhost:5173/)
+    (The application will typically open in your browser).
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+    Привіт. Дякую за таке цікаве та творче тестове завдання! Я реалізував більшу частину інтерфейсу окрім заміни рядка та сортування. Для запису та повернення історії я реалізував два стани: в одному я записував всі кроки які здійснив користувач (hisory), в іншому індекс котрий відображає поточний елемент в історії змін який зараз користувач переглядає (currentIndex). Наприклад, користувач перегялдає третій елемент в істрії з 10, тому в другий стан матиме значення 2: setText(hisory[currentIndex]);
+    Для того щоб інтерфейс не зависав мені я використав Web Worker котрий створює дргугий потік даних і іетерфейс користувача не зависає під обчислень.
